@@ -19,5 +19,5 @@ export type Config = {
 export const CONFIG:Config = {
     basePath: 'http://localhost:8010',
     language: 'en-GB',
-    level: Level.PROFESSIONAL
+    level: Level.CLARITY
 }
