@@ -167,13 +167,14 @@ const debounceCheckText = debounce(checkText, 500);
   border: none;
   background: #222;
   margin: 1rem;
-  line-height: 2;
   overflow-y: auto;
+  white-space: pre-wrap;
 }
 
 #suggestions-wrapper {
   width: 100%;
   height: 90%;
+  overflow-y: auto;
 }
 
 .suggestion {
@@ -193,10 +194,26 @@ const debounceCheckText = debounce(checkText, 500);
   color: inherit;
 }
 
+@media (max-width: 768px) {
+  #wrapper {
+    flex-direction: column;
+  }
+
+  #editor {
+    max-width: 90%;
+    height: 50%;
+  }
+
+  #suggestions-wrapper {
+    height: 50%;
+  }
+}
+
 </style>
 
 <style>
 .highlighted {
   background-color: rgba(255, 0, 0, 0.5);
+  padding: 0.5rem;
 }
 </style>
