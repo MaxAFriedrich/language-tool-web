@@ -1,0 +1,5 @@
+services:
+  languagetool:
+    image: erikvl87/languagetool
+    ports:
+      - 8010:8010
