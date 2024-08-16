@@ -86,12 +86,19 @@ function setCaretPosition(element: HTMLElement, offset: number) {
 
 function highlightText(index: number) {
   if (!editor.value) return;
+  if (index < 0 || index >= suggestions.value.length) return;
+
   const caretPosition = getCaretPosition(editor.value);
   const suggestion = suggestions.value[index];
   const text = (editor.value as HTMLElement).innerText;
   const tmp = `<span class="highlighted">${text.slice(suggestion.offset, suggestion.offset + suggestion.length)}</span>`;
   (editor.value as HTMLElement).innerHTML = text.slice(0, suggestion.offset) + tmp + text.slice(suggestion.offset + suggestion.length);
   setCaretPosition(editor.value, caretPosition);
+
+  const highlightedElement = editor.value.querySelector('.highlighted');
+  if (highlightedElement) {
+    highlightedElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }
 }
 
 function unHighlightText() {
@@ -118,6 +125,18 @@ const isCorrect = computed(() => {
 });
 
 const debounceCheckText = debounce(checkText, 500);
+
+function handlePaste(event: ClipboardEvent) {
+  event.preventDefault();
+  const text = event.clipboardData?.getData('text/plain');
+  if (text && editor.value) {
+    const selection = window.getSelection();
+    if (!selection?.rangeCount) return;
+    selection.deleteFromDocument();
+    selection.getRangeAt(0).insertNode(document.createTextNode(text));
+    selection.collapseToEnd();
+  }
+}
 </script>
 
 <template>
@@ -128,16 +147,18 @@ const debounceCheckText = debounce(checkText, 500);
          id="editor"
          @input="debounceCheckText"
          @focus="unHighlightText"
+         @paste="handlePaste"
     ></div>
     <div id="suggestions-wrapper">
       {{ isCorrect }}
       <div v-for="(suggestion, indexS) in suggestions" :key="suggestion.message"
            @mouseover="highlightText(indexS)"
            @mouseleave="unHighlightText"
+           @click="highlightText(indexS)"
            class="suggestion"
       >
-        <h3 @click="highlightText(indexS)">{{ suggestion.message }}</h3>
-        <div @click="highlightText(indexS)">{{ suggestion.context.text }}</div>
+        <h3>{{ suggestion.message }}</h3>
+        <div>{{ suggestion.context.text }}</div>
         <div>
           <span v-for="(replacement, indexR) in suggestion.replacements.slice(0,5)" :key="replacement.value">
             <button @click="replace(indexS, indexR)">
