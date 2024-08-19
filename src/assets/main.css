@@ -17,3 +17,23 @@ button{
     cursor: pointer;
     font-size: 1rem;
 }
+
+input{
+    background-color: #333;
+    color: #ddd;
+    border: none;
+    padding: 0.3rem;
+    font-size: 1rem;
+    margin: 0.3rem;
+    outline: none;
+}
+
+select{
+    background-color: #333;
+    color: #ddd;
+    border: none;
+    padding: 0.3rem;
+    font-size: 1rem;
+    margin: 0.3rem;
+    outline: none;
+}
