@@ -3,3 +3,9 @@ services:
     image: erikvl87/languagetool
     ports:
       - 8010:8010
+  frontend:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    ports:
+        - 8020:80
