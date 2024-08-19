@@ -1,4 +1,5 @@
-import {watch} from "vue";
+import {ref, type Ref, watch} from "vue";
+import {applyStyle} from "@/style";
 
 export enum Level {
     DEFAULT = 'default',
@@ -117,16 +118,44 @@ export const LanguageNames: { [key in Language]: string } = {
     [Language.UKRAINIAN]: 'Ukrainian'
 };
 
-export type Config = {
-    basePath: string;
-    language: Language;
-    level: Level;
+export enum FontName {
+    MONOSPACE = 'monospace',
+    SERIF = 'serif',
+    SANS_SERIF = 'sans-serif',
+    Attkinson = 'Atkinson Hyperlegible',
+    OpenDyslexic = 'OpenDyslexic',
+    Lexend = 'Lexend',
+    Noto = 'Noto Sans',
+    Fira = 'Fira Sans',
+    Roboto = 'Roboto',
+    Cabin = 'Cabin',
+    Times = 'Times New Roman',
+    Arial = 'Arial',
 }
 
+export type Config = {
+    basePath: Ref<string>;
+    language: Ref<Language>;
+    level: Ref<Level>;
+    fontFamily: Ref<string>;
+    fontSize: Ref<number>;
+    lineHeight: Ref<number>;
+    letterSpacing: Ref<number>;
+    color: Ref<string>;
+    backgroundColor: Ref<string>;
+}
+
+
 export let CONFIG: Config = {
-    basePath: 'https://api.languagetool.org',
-    language: Language.ENGLISH_US,
-    level: Level.DEFAULT
+    basePath: ref('https://api.languagetool.org'),
+    language: ref(Language.ENGLISH_US),
+    level: ref(Level.DEFAULT),
+    fontFamily: ref(FontName.SANS_SERIF),
+    fontSize: ref(16),
+    lineHeight: ref(1.5),
+    letterSpacing: ref(0.05),
+    color: ref('#dddddd'),
+    backgroundColor: ref('#333333')
 }
 
 function parseUrlArgs() {
@@ -135,15 +164,18 @@ function parseUrlArgs() {
     if (json) {
         CONFIG = JSON.parse(atob(json)) as Config
     }
+    applyStyle()
 }
 
 export function setUrlArgs() {
     const urlParams = new URLSearchParams();
     urlParams.set('s', btoa(JSON.stringify(CONFIG)))
     window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`)
+    applyStyle()
 }
 
 export function load() {
     watch(() => window.location.search, parseUrlArgs)
+    watch(() => CONFIG, setUrlArgs, {deep: true})
     parseUrlArgs()
 }

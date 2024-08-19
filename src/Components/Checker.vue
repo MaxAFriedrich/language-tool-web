@@ -211,7 +211,7 @@ onMounted(() => {
   padding: 1rem;
   outline: none;
   border: none;
-  background: #222;
+  background: var(--bg-dark);
   margin: 1rem;
   overflow-y: auto;
   white-space: pre-wrap;
@@ -226,14 +226,14 @@ onMounted(() => {
 .suggestion {
   padding: 0.5rem;
   margin: 0.3rem;
-  background: #333;
+  background: var(--bg-dark);
   border-radius: 0.3rem;
 }
 
 .suggestion button {
   margin: 0.3rem;
   padding: 0.3rem;
-  background: #444;
+  background: var(--bg-dark);
   border: none;
   border-radius: 0.3rem;
   cursor: pointer;
@@ -259,7 +259,7 @@ onMounted(() => {
 
 <style>
 .highlighted {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(150, 150, 150, 0.5);
   padding: 0.5rem;
 }
 </style>

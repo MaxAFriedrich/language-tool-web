@@ -42,7 +42,7 @@ const isOpen = ref(false);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #222;
+  background: var(--bg-dark);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -58,6 +58,7 @@ const isOpen = ref(false);
 
 .modal-content {
   margin-top: 1rem;
+  overflow: auto;
 }
 
 .close-button {

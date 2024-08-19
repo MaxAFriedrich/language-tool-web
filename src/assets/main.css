@@ -1,6 +1,13 @@
+html{
+    --bg: #111;
+    --bg-light: #333;
+    --bg-dark: #000;
+    --color: #ddd;
+}
+
 body{
-    background-color: #111;
-    color: #ddd;
+    background: var(--bg);
+    color: var(--color);
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
@@ -10,8 +17,8 @@ body{
 }
 
 button{
-    background-color: #333;
-    color: #ddd;
+    background-color: var(--bg-light);
+    color: inherit;
     border: none;
     padding: 0.3rem;
     cursor: pointer;
@@ -19,8 +26,8 @@ button{
 }
 
 input{
-    background-color: #333;
-    color: #ddd;
+    background-color: var(--bg-light);
+    color: inherit;
     border: none;
     padding: 0.3rem;
     font-size: 1rem;
@@ -29,8 +36,8 @@ input{
 }
 
 select{
-    background-color: #333;
-    color: #ddd;
+    background-color: var(--bg-light);
+    color: inherit;
     border: none;
     padding: 0.3rem;
     font-size: 1rem;

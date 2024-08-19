@@ -27,12 +27,12 @@ interface LanguageToolResponse {
 }
 
 export async function checkTextWithLanguageTool(text: string) {
-    const url = CONFIG.basePath + '/v2/check';
+    const url = CONFIG.basePath.value + '/v2/check';
 
     const params = new URLSearchParams();
     params.append('text', text);
-    params.append('language', CONFIG.language);
-    params.append('level', CONFIG.level);
+    params.append('language', CONFIG.language.value);
+    params.append('level', CONFIG.level.value);
 
     const response = await fetch(url, {
         method: 'POST',

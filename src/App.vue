@@ -8,12 +8,12 @@ load()
 </script>
 
 <template>
-  <Checker/>
-  <div class="tools">
-    <Modal title="Settings" close-text="X" open-text="Settings">
-      <Settings/>
-    </Modal>
-  </div>
+    <Checker/>
+    <div class="tools">
+      <Modal title="Settings" close-text="X" open-text="Settings">
+        <Settings/>
+      </Modal>
+    </div>
 </template>
 
 <style scoped>
