@@ -158,20 +158,42 @@ export let CONFIG: Config = {
     backgroundColor: ref('#333333')
 }
 
+
+function convertJsonKeys(obj: any): any {
+    if (typeof obj !== 'object' || obj === null) {
+        return obj;
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map(convertJsonKeys);
+    }
+
+    const newObj: any = {};
+    for (const key in obj) {
+        if (key === '_value') {
+            newObj['value'] = convertJsonKeys(obj[key]);
+        } else {
+            newObj[key] = convertJsonKeys(obj[key]);
+        }
+    }
+    return newObj;
+}
+
 function parseUrlArgs() {
     const urlParams = new URLSearchParams(window.location.search);
     const json = urlParams.get('s');
     if (json) {
-        const parsedConfig = JSON.parse(atob(decodeURIComponent(json))) as Config;
-        CONFIG.basePath.value = parsedConfig.basePath._value;
-        CONFIG.language.value = parsedConfig.language._value;
-        CONFIG.level.value = parsedConfig.level._value;
-        CONFIG.fontFamily.value = parsedConfig.fontFamily._value;
-        CONFIG.fontSize.value = parsedConfig.fontSize._value;
-        CONFIG.lineHeight.value = parsedConfig.lineHeight._value;
-        CONFIG.letterSpacing.value = parsedConfig.letterSpacing._value;
-        CONFIG.color.value = parsedConfig.color._value;
-        CONFIG.backgroundColor.value = parsedConfig.backgroundColor._value;
+        let parsedConfig = JSON.parse(atob(decodeURIComponent(json))) as Config;
+        parsedConfig = convertJsonKeys(parsedConfig);
+        CONFIG.basePath.value = parsedConfig.basePath.value;
+        CONFIG.language.value = parsedConfig.language.value;
+        CONFIG.level.value = parsedConfig.level.value;
+        CONFIG.fontFamily.value = parsedConfig.fontFamily.value;
+        CONFIG.fontSize.value = parsedConfig.fontSize.value;
+        CONFIG.lineHeight.value = parsedConfig.lineHeight.value;
+        CONFIG.letterSpacing.value = parsedConfig.letterSpacing.value;
+        CONFIG.color.value = parsedConfig.color.value;
+        CONFIG.backgroundColor.value = parsedConfig.backgroundColor.value;
     }
     applyStyle();
 }
