@@ -1,39 +1,20 @@
 # languagetool-web
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a web interface for the LanguageTool grammar checker. It is based on
+the [LanguageTool HTTP server](https://languagetool.org/http-api/).
 
-## Recommended IDE Setup
+You can self-host this website, you can also self-host the LanguageTool server.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+The theme is fully customizable including fonts, colours, and more to make it as accessible as possible. If you have any
+suggestions for improvements, please open an issue.
 
-## Type Support for `.vue` Imports in TS
+## Quick start
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Go to [lang.mfriedrich.win](https://lang.mfriedrich.win) to use the website.
 
-## Customize configuration
+If you need to edit any settings, just scroll to the bottom of the page and click the settings button.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Self hosting
 
-## Project Setup
+The easiest way to self-host this website is to use Docker.
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
