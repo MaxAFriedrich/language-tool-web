@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {checkTextWithLanguageTool} from '@/api';
-import {computed, ref} from "vue";
+import {ref, watch} from "vue";
 
 interface Suggestion {
   message: string;
@@ -117,12 +117,29 @@ function replace(indexS: number, indexR: number) {
   checkText();
 }
 
-const isCorrect = computed(() => {
+function getFillerText() {
+  if (!editor.value) {
+    return "";
+  }
+  if (editor.value.innerText.length === 0) {
+    return "Type something to check!"
+  }
   if (suggestions.value.length === 0) {
     return "Look good to me!"
   }
   return ""
-});
+}
+
+
+const suggestionsFiller = ref(getFillerText());
+
+watch(suggestions, () => {
+  suggestionsFiller.value = getFillerText();
+})
+
+watch(editor, () => {
+  checkText();
+})
 
 const debounceCheckText = debounce(checkText, 500);
 
@@ -150,7 +167,7 @@ function handlePaste(event: ClipboardEvent) {
          @paste="handlePaste"
     ></div>
     <div id="suggestions-wrapper">
-      {{ isCorrect }}
+      {{ suggestionsFiller }}
       <div v-for="(suggestion, indexS) in suggestions" :key="suggestion.message"
            @mouseover="highlightText(indexS)"
            @mouseleave="unHighlightText"
