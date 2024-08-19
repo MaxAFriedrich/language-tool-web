@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref, watch} from 'vue';
-import {CONFIG, Level, setUrlArgs} from '@/config';
+import {CONFIG, Language, LanguageNames, Level, setUrlArgs} from '@/config';
 
 const config = ref({...CONFIG});
 
@@ -21,7 +21,11 @@ watch(config, () => {
       </div>
       <div>
         <label for="language">Language:</label>
-        <input id="language" v-model="config.language" type="text"/>
+        <select id="language" v-model="config.language">
+          <option v-for="language in Object.values(Language)" :key="language" :value="language">
+            {{ LanguageNames[language] }}
+          </option>
+        </select>
       </div>
       <div>
         <label for="level">Level:</label>
