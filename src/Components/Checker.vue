@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {checkTextWithLanguageTool} from '@/api';
-import {ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 
 interface Suggestion {
   message: string;
@@ -153,7 +153,15 @@ function handlePaste(event: ClipboardEvent) {
     selection.getRangeAt(0).insertNode(document.createTextNode(text));
     selection.collapseToEnd();
   }
+  checkText();
 }
+
+onMounted(() => {
+  if (editor.value) {
+    editor.value.focus();
+  }
+});
+
 </script>
 
 <template>
