@@ -8,12 +8,10 @@ html{
 body{
     background: var(--bg);
     color: var(--color);
-    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     height: 100vh;
-    line-height: 2;
 }
 
 button{
@@ -22,7 +20,9 @@ button{
     border: none;
     padding: 0.3rem;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1em;
+    line-height: inherit;
+    letter-spacing: inherit;
 }
 
 input{
@@ -30,9 +30,12 @@ input{
     color: inherit;
     border: none;
     padding: 0.3rem;
-    font-size: 1rem;
+    font-size: 1em;
     margin: 0.3rem;
     outline: none;
+    line-height: inherit;
+    letter-spacing: inherit;
+    font-family: inherit;
 }
 
 select{
@@ -40,7 +43,10 @@ select{
     color: inherit;
     border: none;
     padding: 0.3rem;
-    font-size: 1rem;
+    font-size: 1em;
     margin: 0.3rem;
     outline: none;
+    line-height: inherit;
+    letter-spacing: inherit;
+    font-family: inherit;
 }
