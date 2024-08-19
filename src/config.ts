@@ -160,16 +160,25 @@ export let CONFIG: Config = {
 
 function parseUrlArgs() {
     const urlParams = new URLSearchParams(window.location.search);
-    const json = urlParams.get('s')
+    const json = urlParams.get('s');
     if (json) {
-        CONFIG = JSON.parse(atob(json)) as Config
+        const parsedConfig = JSON.parse(atob(decodeURIComponent(json))) as Config;
+        CONFIG.basePath.value = parsedConfig.basePath._value;
+        CONFIG.language.value = parsedConfig.language._value;
+        CONFIG.level.value = parsedConfig.level._value;
+        CONFIG.fontFamily.value = parsedConfig.fontFamily._value;
+        CONFIG.fontSize.value = parsedConfig.fontSize._value;
+        CONFIG.lineHeight.value = parsedConfig.lineHeight._value;
+        CONFIG.letterSpacing.value = parsedConfig.letterSpacing._value;
+        CONFIG.color.value = parsedConfig.color._value;
+        CONFIG.backgroundColor.value = parsedConfig.backgroundColor._value;
     }
-    applyStyle()
+    applyStyle();
 }
 
 export function setUrlArgs() {
     const urlParams = new URLSearchParams();
-    urlParams.set('s', btoa(JSON.stringify(CONFIG)))
+    urlParams.set('s', encodeURIComponent(btoa(JSON.stringify(CONFIG))))
     window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`)
     applyStyle()
 }
