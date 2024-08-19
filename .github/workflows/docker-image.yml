@@ -33,4 +33,4 @@ jobs:
           push: true
           tags: |
             MaxAFriedrich/languagetool-web:latest
-            ghcr.io/MaxAFriedrich/languagetool-web:latest
+            ghcr.io/maxafriedrich/languagetool-web:latest
